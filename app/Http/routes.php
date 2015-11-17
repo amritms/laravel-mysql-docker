@@ -18,3 +18,8 @@ Route::get('/', function () {
 Route::get('admin', function(){
    return view('admin/admin_template');
 });
+
+Route::get('register', 'RegistrationController@register');
+Route::post('register', 'RegistrationController@postRegister');
+
+Route::get('register/confirm/{token}', 'RegistrationController@confirmEmail');
