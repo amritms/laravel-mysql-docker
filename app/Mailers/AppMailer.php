@@ -3,6 +3,7 @@
 namespace App\Mailers;
 
 use App\User;
+use Illuminate\Contracts\Mail\Mailer;
 class AppMailer{
     protected $mailer;
     protected $from = 'admin@example.com';
