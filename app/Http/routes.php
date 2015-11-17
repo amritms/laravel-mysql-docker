@@ -23,3 +23,7 @@ Route::get('register', 'RegistrationController@register');
 Route::post('register', 'RegistrationController@postRegister');
 
 Route::get('register/confirm/{token}', 'RegistrationController@confirmEmail');
+
+Route::get('login', 'SessionsController@login');
+Route::post('login', 'SessionsController@postLogin');
+Route::get('loginout', 'SessionsController@logout');
