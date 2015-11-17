@@ -29,11 +29,10 @@
     <div class="register-logo">
         <a href="../../index2.html"><b>Admin</b>LTE</a>
     </div>
-
-
     <div class="register-box-body">
         <p class="login-box-msg">Register a new membership</p>
-        @if (count($errors) > 0)
+
+        @if(count($errors) > 0)
             <div class="alert alert-danger">
                 <ul>
                     @foreach($errors->all() as $error)
@@ -43,14 +42,20 @@
             </div>
 
         @endif
-        <form action="register" method="post">
-            {!! csrf_field() !!}
+
+        @if(session()->has('message')))
+            <div class="alert alert-info">{{ session('message') }}</div>
+        @endif
+
+        <form action="{{ url('register') }}" method="post">
+            {{ csrf_field() }}
             <div class="form-group has-feedback">
-                <input type="text" name="name" class="form-control" placeholder="Full name">
+                <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="Full name">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="email" name="email" class="form-control" placeholder="Email">
+                <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email">
+
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
