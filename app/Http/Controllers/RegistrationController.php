@@ -37,4 +37,13 @@ class RegistrationController extends Controller
 
         return redirect()->back();
     }
+
+    public function confirmEmail($token = '')
+    {
+        $user = User::whereToken($token)->firstOrFail()->confirmEmail();
+
+        flash('You are now confirmed. Please login.');
+
+        return redirect('login');
+    }
 }
