@@ -15,9 +15,10 @@ class AuthTest extends TestCase
             ->type('JohnDoe', 'name')
             ->type('johndoe@example.com', 'email')
             ->type('password123', 'password')
+            ->type('password123', 'password_confirmation')
             ->press('Register');
 
-        $this->see('Please confirm your email address')
+        $this->see('Please confirm your email address.')
             ->seeInDatabase('users', ['name' => 'JohnDoe', 'verified' => 0]);
 
     }
