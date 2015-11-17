@@ -1,7 +1,33 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sam
- * Date: 11/17/15
- * Time: 5:05 PM
- */
+
+namespace App\Mailers;
+
+use App\User;
+class AppMailer{
+    protected $mailer;
+    protected $from = 'admin@example.com';
+    protected $to;
+    protected $view;
+    protected $data = [];
+
+
+    public function __construct(Mailer $mailer){
+        $this->mailer = $mailer;
+    }
+
+    public function sendEmailConfirmationTo(User $user){
+        $this->to = $user->email;
+        $this->view = 'emails.confirm';
+        $this->data = compact($user);
+
+        $this->deliver();
+    }
+
+    public function deliver()
+    {
+        $this->mailer->send($this->view, $this->data, function($message){
+            $message->from($this->from, 'Administrator')
+                ->to($this->to);
+        });
+    }
+}
