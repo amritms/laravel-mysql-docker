@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class SessionsController extends Controller
 {
@@ -17,16 +17,19 @@ class SessionsController extends Controller
     public function postLogin(Request $request)
     {
         $this->validate($request, [
-           'email' => 'required',
+           'email' => 'required|email',
            'password' => 'required'
         ]);
 
-        if(Auth::attempt($this->getCredintials($request)))
+        if(Auth::attempt($this->getCredentials($request)))
         {
             flash('You are now confirmed. Please login.');
+            return redirect()->intended('/admin');
         }
 
-        return redirect()->intended('/dashoboard');
+        flash('Could not sign you in. Please check your credentials.');
+
+        return redirect()->back();
     }
 
     public function logout()
@@ -34,5 +37,14 @@ class SessionsController extends Controller
         Auth::logout();
         flash('You have now been signed out.');
         redirect('login');
+    }
+
+    protected function getCredentials(Request $request)
+    {
+        return [
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'verified' => true
+        ];
     }
 }

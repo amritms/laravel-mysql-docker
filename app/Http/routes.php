@@ -27,3 +27,5 @@ Route::get('register/confirm/{token}', 'RegistrationController@confirmEmail');
 Route::get('login', 'SessionsController@login');
 Route::post('login', 'SessionsController@postLogin');
 Route::get('loginout', 'SessionsController@logout');
+
+//Route::get('dashboard', ['middleware' => 'auth', 'uses' => ''], 'admin');
