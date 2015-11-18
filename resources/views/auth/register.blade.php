@@ -3,21 +3,6 @@
 @section('content')
 <p class="login-box-msg">Register a new membership</p>
 
-@if(count($errors) > 0)
-    <div class="alert alert-danger">
-        <ul>
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-
-@endif
-
-@if(session()->has('message')))
-<div class="alert alert-info">{{ session('message') }}</div>
-@endif
-
 <form action="{{ url('register') }}" method="post">
     {{ csrf_field() }}
     <div class="form-group has-feedback">
@@ -61,5 +46,5 @@
         Google+</a>
 </div>
 
-<a href="login.html" class="text-center">I already have a membership</a>
+<a href="login" class="text-center">I already have a membership</a>
 @stop
