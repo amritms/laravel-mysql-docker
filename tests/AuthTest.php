@@ -32,8 +32,19 @@ class AuthTest extends TestCase
 
     }
 
+    /** @test */
+    function a_user_may_login()
+    {
+        $this->login()->see('you are logged in.');
+    }
+
     protected function login($user = null)
     {
         $user = $user ?: $this->factory->create('App\User', ['password' => 'newPassword']);
+
+        return $this->visit('login')
+            ->type($user->email, 'email')
+            ->type('password1234', 'password')
+            ->press('Sign In');
     }
 }
