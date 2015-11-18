@@ -11,12 +11,22 @@ class SessionsController extends Controller
 {
     public function login()
     {
-
+        return view('auth.login');
     }
 
-    public function postLogin()
+    public function postLogin(Request $request)
     {
+        $this->validate($request, [
+           'email' => 'required',
+           'password' => 'required'
+        ]);
 
+        if(Auth::attempt($this->getCredintials($request)))
+        {
+            flash('You are now confirmed. Please login.');
+        }
+
+        return redirect()->intended('/dashoboard');
     }
 
     public function logout()
