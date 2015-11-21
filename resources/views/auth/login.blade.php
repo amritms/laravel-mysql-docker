@@ -1,4 +1,4 @@
-@extends('login_template')
+@extends('templates.login_template')
 
 @section('content')
     <p class="login-box-msg">Sign in to start your session</p>
