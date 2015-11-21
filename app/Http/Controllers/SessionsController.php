@@ -23,7 +23,7 @@ class SessionsController extends Controller
 
         if(Auth::attempt($this->getCredentials($request)))
         {
-            flash('You are now confirmed. Please login.');
+            flash('Welcome!');
             return redirect()->intended('/admin');
         }
 
