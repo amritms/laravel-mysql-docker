@@ -40,11 +40,11 @@ class AuthTest extends TestCase
 
     protected function login($user = null)
     {
-        $user = $user ?: $this->factory->create('App\User', ['password' => 'newPassword']);
+        $user = factory(User::class)->create(['password' => 'newPassword']);
 
         return $this->visit('login')
             ->type($user->email, 'email')
-            ->type('password1234', 'password')
+            ->type('newPassword', 'password')
             ->press('Sign In');
     }
 }
