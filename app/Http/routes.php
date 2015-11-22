@@ -14,10 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+//
+//Route::get('admin', function(){
+//   return view('templates/admin_template');
+//});
 
-Route::get('admin', function(){
-   return view('admin/admin_template');
-});
+//Route::get('admin', 'SessionsController@login');
 
 Route::get('register', 'RegistrationController@register');
 Route::post('register', 'RegistrationController@postRegister');
@@ -26,6 +28,17 @@ Route::get('register/confirm/{token}', 'RegistrationController@confirmEmail');
 
 Route::get('login', 'SessionsController@login');
 Route::post('login', 'SessionsController@postLogin');
-Route::get('loginout', 'SessionsController@logout');
+Route::get('logout', 'SessionsController@logout');
 
 //Route::get('dashboard', ['middleware' => 'auth', 'uses' => ''], 'admin');
+//Route::get('admin', ['middleware' => 'auth', function() {
+//    return view('templates/admin_template');
+//}]);
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function(){
+    Route::get('/', function(){
+        return view('templates/admin_template');
+    });
+
+    Route::Resource('profile', 'ProfileController@index');
+});
