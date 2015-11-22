@@ -21,7 +21,7 @@ class SessionsController extends Controller
            'password' => 'required'
         ]);
 
-        if(Auth::attempt($this->getCredentials($request)))
+        if(Auth::attempt($this->getCredentials($request), $request->remember))
         {
             flash('Welcome!');
             return redirect()->intended('/admin');
@@ -36,7 +36,7 @@ class SessionsController extends Controller
     {
         Auth::logout();
         flash('You have now been signed out.');
-        redirect('login');
+        return redirect('login');
     }
 
     protected function getCredentials(Request $request)
