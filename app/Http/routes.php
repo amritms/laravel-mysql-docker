@@ -36,9 +36,9 @@ Route::get('logout', 'SessionsController@logout');
 //}]);
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function(){
-    Route::get('/', function(){
+    Route::get('/', ['as' => 'dashboard', 'uses' => function(){
         return view('templates/admin_template');
-    });
+    }]);
 
     Route::Resource('profile', 'ProfileController@index');
 });
